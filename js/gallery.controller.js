@@ -17,5 +17,16 @@ function renderGallery(){
 
 function onSelectImg(elImg) {
     console.log('elImg:', elImg)
+    onOpenEditor()
     setImg(elImg)
+}
+
+function onOpenEditor(){
+    document.querySelector('.editor-modal').classList.remove('hide')
+    document.querySelector('.editor-container').classList.remove('hide')
+}
+
+function onCloseEditor(){
+    document.querySelector('.editor-modal').classList.add('hide')
+    document.querySelector('.editor-container').classList.add('hide')
 }

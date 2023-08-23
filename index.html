@@ -8,9 +8,8 @@
 </head>
 <body onload="onInit()">
     
-<section>EDITOR
-
-    <div class="canvas-container">
+    <section class="editor-modal hide">EDITOR
+    <div class="editor-container hide">
         <canvas class="myCanvas" id="myCan" width="300" height="300">
         </canvas>
         <div>
@@ -21,9 +20,10 @@
             <button onclick="onChangeFontSize(5)">A+</button>
             <button onclick="onChangeFontSize(-5)">A-</button>
             <button onclick="onAddLine()">Add line</button>
+            <button class="close-btn" onclick="onCloseEditor()">X</button>
         </div>
     </div>
-</section>
+    </section>
 
 
 <h3>Select an image</h3>
