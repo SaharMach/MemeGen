@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/style.css">
+    <title>Document</title>
+</head>
+<body onload="onInit()">
+    
+<section>EDITOR
+
+    <div class="canvas-container">
+        <canvas class="myCanvas" id="myCan" width="300" height="300">
+        </canvas>
+        <div>
+            <input class="text-box" type="text" placeholder="Add TEXT" oninput="onUpdateText(value)">
+            <button class="toggle-btn" onclick="onToggleTextBox()">Toggle</button>
+            <a href="#" class="btn download-btn" onclick="downloadImg(this)" download="my-img.jpg">Download</a>
+            <input type="color" class="btn color-btn" onchange="onSetColor(value)">
+            <button onclick="onChangeFontSize(5)">A+</button>
+            <button onclick="onChangeFontSize(-5)">A-</button>
+            <button onclick="onAddLine()">Add line</button>
+        </div>
+    </div>
+</section>
+
+
+<h3>Select an image</h3>
+<section class="select-img-container">
+</section>
+    <script src="js/services/gallery.service.js"></script>
+    <script src="js/services/util.service.js"></script>
+    <script src="js/services/meme.service.js"></script>
+    <script src="js/meme.controller.js"></script>
+    <script src="js/gallery.controller.js"></script>
+   
+
+</body>
+</html>
