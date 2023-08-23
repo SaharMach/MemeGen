@@ -17,6 +17,7 @@ function renderGallery(){
 
 function onSelectImg(elImg) {
     console.log('elImg:', elImg)
+    document.querySelector('.text-box').value = ''
     onOpenEditor()
     setImg(elImg)
 }

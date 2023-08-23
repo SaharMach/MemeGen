@@ -36,28 +36,34 @@ function getMeme(){
 
 function setLineText(val){
     const line = gMeme.lines[gCurrLine]
-    console.log('gCurrLine:', line)
+    // console.log('gCurrLine:', line)
     line.txt = val
 }
 
 function setImg(img){
-    console.log('img:', img.getAttribute('data-set'))
+    // console.log('img:', img.getAttribute('data-set'))
     const imgId = +img.getAttribute('data-set')
+    // console.log('gMeme:', gMeme)
+    resetMemeLines()
     gMeme.selectedImgId =  imgId
-    console.log('gMeme:', gMeme)
     renderMeme()
 }
 
+function resetMemeLines(){
+    gMeme.lines.forEach(line => {
+        line.txt = 'FunnyText';
+    });
+}
+
 function setColor(val){
-    console.log('val:', val)
+    // console.log('val:', val)
     gMeme.lines[gCurrLine].color = val
-    console.log('gCurrColor:', gCurrColor)
+    // console.log('gCurrColor:', gCurrColor)
 }
 
 function changeFontSize(val){
     gMeme.lines[gCurrLine].size +=val
 }
-// console.log('gCurrColor:', gCurrColor)
 
 
 function toggleTextBox(){
@@ -66,17 +72,15 @@ function toggleTextBox(){
     }else{
         gMeme.selectedLineIdx++
     }
-    // console.log('gMeme:', gMeme)
     gCurrLine = gMeme.lines.findIndex(line => {
-        console.log('line:', line)
+        // console.log('line:', line)
         return line.id === gMeme.selectedLineIdx
     })
-    // return gCurrLine
 }
 
 function addLine(){
-    console.log('hey');
-    console.log('gMeme.lines.length:', gMeme.lines.length)
+    // console.log('hey');
+    // console.log('gMeme.lines.length:', gMeme.lines.length)
     if(gMeme.lines.length === 3) return
     const line =   {
             id:2,
@@ -88,4 +92,8 @@ function addLine(){
          }
     gMeme.lines.push(line)
     gCurrLine++
+}
+
+function clearInput(){
+    resetMemeLines()
 }

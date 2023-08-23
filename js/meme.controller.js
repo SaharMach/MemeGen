@@ -10,27 +10,26 @@ let gToggle = false
 function onInit(){
     gElCanvas = document.querySelector('canvas')
     gCtx = gElCanvas.getContext('2d')
-    
     renderMeme()
 }
 
 
 function renderMeme(){
     const meme = getMeme();
-    console.log('meme:', meme)
+    // console.log('meme:', meme)
     // console.log('meme:', meme.selectedImgId)
     const selectedImg = findImg(meme.selectedImgId)
     // console.log('selectedImg:', selectedImg)
     const img = new Image();
-    console.log('img:', img)
+    // console.log('img:', img)
     img.src = selectedImg.url;
- 
+    
+    
     img.onload = () => {
      gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height);
- 
-     
      meme.lines.forEach((line,idx) => {
-        console.log('gCtx:', gCtx)
+        
+        // console.log('gCtx:', gCtx)
          gCtx.font = `${line.size}px IMPACT`;
          gCtx.fillStyle = line.color;
          gCtx.fillText(line.txt, line.x,line.y);
@@ -72,5 +71,11 @@ function onToggleTextBox(){
 
 function onAddLine(){
     addLine()
+    renderMeme()
+}
+
+function onClearInput(){
+    document.querySelector('.text-box').value = ''
+    clearInput()
     renderMeme()
 }

@@ -7,26 +7,41 @@
     <title>Document</title>
 </head>
 <body onload="onInit()">
-    
-    <section class="editor-modal hide">EDITOR
+
+    <header>
+        <logo>myMemesGen</logo>
+        <section class="header-links">
+            <a href="#">Gallery</a>
+            <a href="#">About</a>
+        </section>
+    </header>
+    <section class="editor-modal hide">
     <div class="editor-container hide">
         <canvas class="myCanvas" id="myCan" width="300" height="300">
         </canvas>
-        <div>
+        <div class="btns-container grid">
             <input class="text-box" type="text" placeholder="Add TEXT" oninput="onUpdateText(value)">
-            <button class="toggle-btn" onclick="onToggleTextBox()">Toggle</button>
-            <a href="#" class="btn download-btn" onclick="downloadImg(this)" download="my-img.jpg">Download</a>
-            <input type="color" class="btn color-btn" onchange="onSetColor(value)">
-            <button onclick="onChangeFontSize(5)">A+</button>
-            <button onclick="onChangeFontSize(-5)">A-</button>
-            <button onclick="onAddLine()">Add line</button>
+
+            <section class="lines-btns">
+                <button onclick="onAddLine()">➕</button>
+                <button class="clear-btn" onclick="onClearInput()">Clear</button>
+                <button class="toggle-btn" onclick="onToggleTextBox()">⇅</button>
+            </section>
+
+            <section class="text-btns">
+                <input type="color" class="color-btn" onchange="onSetColor(value)">
+                <button onclick="onChangeFontSize(5)">A+</button>
+                <button onclick="onChangeFontSize(-5)">A-</button>    
+            </section>
+            
+            <a href="#" class="download-btn" onclick="downloadImg(this)" download="my-img.jpg">Download</a>
             <button class="close-btn" onclick="onCloseEditor()">X</button>
         </div>
     </div>
     </section>
 
 
-<h3>Select an image</h3>
+<h3>Gallery </h3>
 <section class="select-img-container">
 </section>
     <script src="js/services/gallery.service.js"></script>
