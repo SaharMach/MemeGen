@@ -27,10 +27,10 @@
                 <button class="add-btn" onclick="onAddLine()">➕</button>
                 <button class="delete-btn" onclick="onDeleteLine()"><i class="fa-solid fa-delete-left"></i></button>
                 <button class="clear-btn" onclick="onClearInput()"><i class="fa-solid fa-eraser"></i></button>
-                <button class="toggle-btn" onclick="onToggleTextBox()">⇅</button>
                 <section class="line-control">
                     <button onclick="onMoveLine(-4)"><i class="fa-solid fa-chevron-up"></i></button>
                     <button onclick="onMoveLine(4)"><i class="fa-solid fa-chevron-down"></i></button>
+                    <button class="toggle-btn" onclick="onToggleTextBox()">⇅</button>
                 </section>
             </section>
 
@@ -40,16 +40,19 @@
                 <button onclick="onAlignRight()"><i class="fa-solid fa-align-right"></i></button>
                 <button onclick="onChangeFontSize(5)">A+</button>
                 <button onclick="onChangeFontSize(-5)">A-</button>
-                <input class="color-btn" type="color" onchange="onSetColor(value)">
-                <input class="font-input" type="number" onchange="onSelectFontSize(value)">
-                <select class="font-select" name="font" id="" onchange="onChangeFontStyle(value)">
-                    <option value="IMPACT">IMPACT</option>
-                    <option value="Arial">Arial</option>
-                    <option value="italic">italic</option>
-                </select>
+                <section class="text-changers">
+                    <input class="font-input" type="number" onchange="onSelectFontSize(value)">
+                    <input class="color-btn" type="color" onchange="onSetColor(value)">
+                    <select class="font-select" name="font" id="" onchange="onChangeFontStyle(value)">
+                        <option value="IMPACT">IMPACT</option>
+                        <option value="Arial">Arial</option>
+                        <option value="italic">italic</option>
+                    </select>
+                </section>
             </section>
-            
-            <a href="#" class="download-btn" onclick="downloadImg(this)" download="my-img.jpg"><i class="fa-solid fa-download"> Download</i></a>
+            <section class="download-links">
+                <a href="#" class="download-btn" onclick="downloadImg(this)" download="my-img.jpg"><i class="fa-solid fa-download"> Download</i></a>
+            </section>
             <button class="close-btn" onclick="onCloseEditor()"><i class="fa-solid fa-xmark"></i></button>
         </div>
     </div>
@@ -57,7 +60,7 @@
 
 
     
-    <h3 style="font-style: italic; font-size: 40px;">Gallery </h3>
+    
     <section class="select-img-container">
 </section>
     <!-- <footer>

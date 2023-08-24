@@ -1,11 +1,11 @@
 
 @import url(./helpers.css);
-
+@import url(./mq.css);
 
 body{
     position: relative;
     text-align: center;
-    background-color: #ecf0f1;
+    /* background-color: #ecf0f1; */
 }
   
 /* HEADER */
@@ -14,10 +14,12 @@ header{
   display: flex;
   margin: 0;
   align-items: center;
-  background: linear-gradient(45deg, #67b26f, #4ca2cd);
+  background:linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+ 
   color: white;
   width: 100%;
   justify-content: space-between;
+  border-radius: 5px;
 }
 
 header logo{
@@ -25,11 +27,6 @@ header logo{
   font-style: italic;
   font-weight: bold;
   /* margin-inline-end: 0; */
-}
-
-header logo::after{
-  content: '.';
-  color: greenyellow;
 }
 
 header a{
@@ -41,13 +38,6 @@ header a{
 
 
 /* EDITOR */
-.editor-container{
-    margin: 20px auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    width: 700px;
-    gap: 20px;
-}
 
 canvas{
     position: relative;
@@ -59,10 +49,12 @@ canvas{
 .btns-container{
   display: grid;
   grid-template-rows: repeat(4, 1fr); 
-  /* background-color: rgba(0, 255, 255, 0.4); */
+  background:linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   border-radius: 30px;
   border: 2px solid gray;
+  height: 350px;
 }
+
 
 .btn, .lines-btns button, .text-btns button{
   padding: 10px 15px;
@@ -75,8 +67,8 @@ canvas{
 }
 
 .btn:hover, .lines-btns button:hover, .text-btns button:hover {
-  background-color: rgba(0, 128, 255, 0.8); 
-  transform: scale(1.1); 
+  /* background-color: rgba(0, 128, 255, 0.8);  */
+  transform: scale(1.2); 
 }
 
 .text-btns{
@@ -85,6 +77,10 @@ canvas{
 
 .text-btns button{
   width: max-content;
+}
+
+.text-changers{
+  margin-top: 10px;
 }
 
 .font-input{
@@ -105,7 +101,12 @@ canvas{
 }
 
 .toggle-btn{
+  margin-top: 5px;
   background-color: rgb(0, 140, 255);
+}
+
+.clear-btn{
+  background-color: orange;
 }
 
 .text-box{
@@ -113,33 +114,17 @@ canvas{
   height: 40px;
   width: 60%;
   justify-self: center;
-  align-self: end;
+  align-self: center;
   border-radius: 20px;
 }
 
-.editor-container{
-  position: relative;
-  margin: 20vh auto;
-  padding: 20px;
-  background: linear-gradient(45deg, #67b26f, #4ca2cd);
-  border-radius: 8px;
-}
-  
-.close-btn{
-  position: absolute;
-  top: 0;
-  right: 0;
-  border-radius: 8px;
-  cursor: pointer;
+.download-links{
+  align-self: center;
 }
 
-.color-btn::content{
-  font-family: "Font Awesome 5 Free";
-  content: "\f55d";
-}
-
-.line-control button {
-  color: black;
+.download-links i{
+  color: white;
+  font-size: 14px;
 }
 
 /* GALLERY */

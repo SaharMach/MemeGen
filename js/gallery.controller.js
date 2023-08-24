@@ -7,7 +7,7 @@ function renderGallery(){
     const elCon = document.querySelector('.select-img-container')
     const imgs = getImgs()
     console.log(imgs);
-    var strHTML = ``
+    var strHTML = `<h3 style="font-style: italic; font-size: 40px;">Gallery </h3>`
     imgs.forEach(img => {
         strHTML += `<img data-set='${img.id}' src="imgs/${img.id}.jpg" onclick="onSelectImg(this)"/>`
     })

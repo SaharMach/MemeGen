@@ -1,9 +1,7 @@
 'use strict'
 
 
-var gCurrColor
 var gCurrLine = 0
-
 var gMeme = {
     selectedImgId: 1,
     selectedLineIdx: 0,
@@ -14,7 +12,9 @@ var gMeme = {
             size: 30,
             color: 'white',
             x:30,
-            y:50
+            y:50,
+            isDrag: false,
+            isClicked: false
         } ,
         {
             id:1,
@@ -22,13 +22,14 @@ var gMeme = {
             size: 30,
             color: 'white',
             x:30,
-            y:270
+            y:320,
+            isClicked:false,
+            isDrag: false
         }
     ]
 }
 
 var gKeywordSearchCountMap = {'funny': 12,'cat': 16, 'baby': 2}
-
 
 function getMeme(){
     return gMeme
@@ -58,9 +59,8 @@ function resetMemeLines(){
     });
 }
 
-
 function setColor(val){
-    // console.log('val:', val)
+    console.log('val:', val)
     gMeme.lines[gCurrLine].color = val
     // console.log('gCurrColor:', gCurrColor)
 }
@@ -68,7 +68,6 @@ function setColor(val){
 function changeFontSize(val){
     gMeme.lines[gCurrLine].size +=val
 }
-
 
 function toggleTextBox(){
     if(gMeme.selectedLineIdx >= gMeme.lines.length -1){
@@ -92,7 +91,9 @@ function addLine(){
             size: 30,
             color: 'white',
             x:30,
-            y:150
+            y:175,
+            isDrag: false,
+            isClicked: false
          }
     gMeme.lines.push(line)
     gCurrLine++
@@ -133,4 +134,45 @@ function deleteLine(){
 function moveLine(val){
     console.log('val:', val)
     gMeme.lines[gCurrLine].y += val
+}
+
+function isLineClicked(clickedPos){
+    const lineBorders = getLineBorders()
+    console.log('lineBorders:', lineBorders)
+    for(let i = 0; i < lineBorders.length; i++){
+        const line = lineBorders[i]
+        const textWidth = gCtxMeasure(i)
+        const isInWidth = clickedPos.x >= line.x && clickedPos.x <= line.x + textWidth
+        const isInHeight = clickedPos.y <= line.y + (0.2 * line.size) && clickedPos.y >= line.y - line.size
+        if(isInWidth && isInHeight){
+            gMeme.lines.forEach(line => line.isClicked = false); 
+            gMeme.lines[i].isClicked = true;
+            gCurrLine = i;
+            gMeme.selectedLineIdx = i;
+            return true;
+        }
+    }
+    return false
+}
+
+function getLineBorders(){
+    return gMeme.lines.map(line => ({
+            x: line.x,
+            y: line.y,
+            size: line.size,
+            txt: line.txt
+    }))
+}
+
+function setLineDrag(isDrag) {
+    gMeme.lines[gCurrLine].isDrag = isDrag
+}
+
+function getCurrLine(){
+    return gMeme.lines[gCurrLine]
+}
+
+function grabMoveLine(dx,dy){
+    gMeme.lines[gCurrLine].x += dx
+    gMeme.lines[gCurrLine].y += dy
 }

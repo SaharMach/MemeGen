@@ -6,11 +6,15 @@ let gElCanvas
 let gCtx
 let gToggle = false
 let gCurrFont = 'IMPACT'
+let gStartPos
+const TOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
 
 function onInit(){
     gElCanvas = document.querySelector('canvas')
     gCtx = gElCanvas.getContext('2d')
     renderMeme()
+    addMouseListeners()
+    addTouchListeners()
 }
 
 
@@ -78,7 +82,7 @@ function onClearInput(){
     document.querySelector('.text-box').value = ''
     document.querySelector('.font-input').value = ''
     document.querySelector('.font-select').value = 'IMPACT'
-    document.querySelector('.color-btn').value = 'black'
+    document.querySelector('.color-btn').value = '#000000'
     clearInput()
     renderMeme()
 }
@@ -127,4 +131,68 @@ function onCloseEditor(){
 function onMoveLine(val){
     moveLine(val)
     renderMeme()
+}
+
+function addMouseListeners() {
+    gElCanvas.addEventListener('mousedown', onDown)
+    gElCanvas.addEventListener('mousemove', onMove)
+    gElCanvas.addEventListener('mouseup', onUp)
+  }
+  
+function addTouchListeners() {
+    gElCanvas.addEventListener('touchstart', onDown)
+    gElCanvas.addEventListener('touchmove', onMove)
+    gElCanvas.addEventListener('touchend', onUp)
+}
+
+function onDown(ev) {
+    const pos = getEvPos(ev)     
+    console.log('pos', pos)
+    if (isLineClicked(pos)){
+        setLineDrag(true) 
+        gStartPos = pos
+        document.body.style.cursor = 'grabbing'
+    } 
+}
+
+
+function onUp() {
+    console.log('onUp')
+    setLineDrag(false)
+    document.body.style.cursor = 'grab'
+}
+function onMove(ev) {
+        const isDrag = getCurrLine().isDrag   
+        if (!isDrag) return
+        const pos = getEvPos(ev)
+        const dx = pos.x - gStartPos.x
+        const dy = pos.y - gStartPos.y
+        grabMoveLine(dx, dy)
+        gStartPos = pos
+        renderMeme()
+}  
+
+function getEvPos(ev) {
+    let pos = {
+      x: ev.offsetX,
+      y: ev.offsetY,
+    }
+    if (TOUCH_EVS.includes(ev.type)) {
+      // Prevent triggering the mouse ev
+      ev.preventDefault()
+      // Gets the first touch point
+      ev = ev.changedTouches[0]
+      // Calc the right pos according to the touch screen
+      pos = {
+        x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
+        y: ev.pageY - ev.target.offsetTop - ev.target.clientTop,
+      }
+    }
+    return pos
+  }
+
+function gCtxMeasure(index){
+    const meme = getMeme();
+    const currLine = meme.lines[index]
+     return gCtx.measureText(currLine.txt).width
 }
