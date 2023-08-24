@@ -5,7 +5,7 @@
 let gElCanvas
 let gCtx
 let gToggle = false
-
+let gCurrFont = 'IMPACT'
 
 function onInit(){
     gElCanvas = document.querySelector('canvas')
@@ -30,7 +30,7 @@ function renderMeme(){
      meme.lines.forEach((line,idx) => {
         
         // console.log('gCtx:', gCtx)
-         gCtx.font = `${line.size}px IMPACT`;
+         gCtx.font = `${line.size}px ${gCurrFont}`;
          gCtx.fillStyle = line.color;
          gCtx.fillText(line.txt, line.x,line.y);
 
@@ -76,6 +76,55 @@ function onAddLine(){
 
 function onClearInput(){
     document.querySelector('.text-box').value = ''
+    document.querySelector('.font-input').value = ''
+    document.querySelector('.font-select').value = 'IMPACT'
+    document.querySelector('.color-btn').value = 'black'
     clearInput()
+    renderMeme()
+}
+
+function onSelectFontSize(val){
+    selectFontSize(val)
+    renderMeme()
+}
+
+function onChangeFontStyle(val){
+    console.log('val:', val)
+    gCurrFont = val
+}
+
+function onCenterLine(){
+    centerLine()
+    renderMeme()
+}
+
+function onAlignLeft(){
+    alignLeft()
+    renderMeme()
+}
+
+function onAlignRight(){
+    alignRight()
+    renderMeme()
+}
+
+function onDeleteLine(){
+    deleteLine()
+    renderMeme()
+}
+
+function onOpenEditor(){
+    document.querySelector('.editor-modal').classList.remove('hide')
+    document.querySelector('.editor-container').classList.remove('hide')
+}
+
+function onCloseEditor(){
+    document.querySelector('.editor-modal').classList.add('hide')
+    document.querySelector('.editor-container').classList.add('hide')
+    document.querySelector('.select-img-container').classList.remove('hide')
+}
+
+function onMoveLine(val){
+    moveLine(val)
     renderMeme()
 }

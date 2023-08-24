@@ -19,7 +19,7 @@ var gMeme = {
         {
             id:1,
             txt: 'FunnyText',
-           size: 30,
+            size: 30,
             color: 'white',
             x:30,
             y:270
@@ -52,8 +52,12 @@ function setImg(img){
 function resetMemeLines(){
     gMeme.lines.forEach(line => {
         line.txt = 'FunnyText';
+        line.size = 30;
+        line.color = 'white'
+        line.x = 30
     });
 }
+
 
 function setColor(val){
     // console.log('val:', val)
@@ -96,4 +100,37 @@ function addLine(){
 
 function clearInput(){
     resetMemeLines()
+    if(gMeme.lines.length === 3) {
+        gMeme.lines.splice(2)
+        console.log('3 lines!!!');
+        }
+}
+
+function selectFontSize(val){
+    gMeme.lines[gCurrLine].size = +val
+}
+
+
+function centerLine(){
+    gMeme.lines[gCurrLine].x = 85
+}
+
+function alignLeft(){
+    console.log('gMeme.lines[gCurrLine].x:', gMeme.lines[gCurrLine].x)
+    gMeme.lines[gCurrLine].x = 30
+    console.log('gMeme.lines[gCurrLine].x:', gMeme.lines[gCurrLine].x)
+}
+
+function alignRight(){
+    gMeme.lines[gCurrLine].x = 140
+}
+
+function deleteLine(){
+    if(!gMeme.lines[gCurrLine]) return
+    gMeme.lines.splice(0,1)
+}
+
+function moveLine(val){
+    console.log('val:', val)
+    gMeme.lines[gCurrLine].y += val
 }

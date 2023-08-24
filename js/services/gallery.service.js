@@ -32,5 +32,12 @@ function getImgs(){
 function findImg(id){
     var selectedImg = gImgs.find(img => img.id === id);
     // console.log('img:', img2)
+    // console.log(selectedImg);
     return selectedImg
+}
+
+function getRandomMeme(){
+    const randNum = getRandomIntInclusive(1,18)
+    console.log('randNum:', randNum)
+    findImg(randNum)
 }

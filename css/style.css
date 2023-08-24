@@ -5,21 +5,48 @@
 body{
     position: relative;
     text-align: center;
-  }
+    background-color: #ecf0f1;
+}
   
+/* HEADER */
+header{
+  position: sticky;
+  display: flex;
+  margin: 0;
+  align-items: center;
+  background: linear-gradient(45deg, #67b26f, #4ca2cd);
+  color: white;
+  width: 100%;
+  justify-content: space-between;
+}
 
+header logo{
+  font-size: 30px;
+  font-style: italic;
+  font-weight: bold;
+  /* margin-inline-end: 0; */
+}
+
+header logo::after{
+  content: '.';
+  color: greenyellow;
+}
+
+header a{
+  color: white;
+  font-size: 20px;
+  padding: 10px;
+}
+
+
+
+/* EDITOR */
 .editor-container{
     margin: 20px auto;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    width: 650px;
+    width: 700px;
     gap: 20px;
-}
-
-.select-img-container{
-    margin-top: 30px;
-  /* display: flex; */
-  
 }
 
 canvas{
@@ -32,8 +59,9 @@ canvas{
 .btns-container{
   display: grid;
   grid-template-rows: repeat(4, 1fr); 
-  background-color: gainsboro;
+  /* background-color: rgba(0, 255, 255, 0.4); */
   border-radius: 30px;
+  border: 2px solid gray;
 }
 
 .btn, .lines-btns button, .text-btns button{
@@ -59,19 +87,24 @@ canvas{
   width: max-content;
 }
 
+.font-input{
+  width: 40px;
+  border-radius: 10px;
+}
+
 .lines-btns{
   align-self: center;  
 }
 
-.lines-btns button:first-child{
+.add-btn{
   background-color: rgb(60, 255, 0)
 }
 
-.lines-btns button:nth-child(2){
+.delete-btn{
   background-color: red;
 }
 
-.lines-btns button:last-child{
+.toggle-btn{
   background-color: rgb(0, 140, 255);
 }
 
@@ -80,44 +113,18 @@ canvas{
   height: 40px;
   width: 60%;
   justify-self: center;
-  align-self: center;
+  align-self: end;
   border-radius: 20px;
 }
 
-img{
-    height: 200px;
-    width: 200px;
-    box-shadow: 5px 10px 8px #888888;
-    border-radius: 20px;
-    border: 2px solid gray;
-    cursor: pointer;
-}
-  
-img:hover{
-    transform: translateY(-10px);
-}
-
-.editor-modal{ 
-  position: fixed; 
-  top: 0; 
-  left: 0;
-  width: 100%; 
-  height: 100%; 
-  background-color: rgba(0,0,0,0.8); 
-  overflow: auto;
-}
-
-  
 .editor-container{
   position: relative;
   margin: 20vh auto;
   padding: 20px;
-  background-color: #fff;
+  background: linear-gradient(45deg, #67b26f, #4ca2cd);
   border-radius: 8px;
 }
   
-
-
 .close-btn{
   position: absolute;
   top: 0;
@@ -126,34 +133,30 @@ img:hover{
   cursor: pointer;
 }
 
-
-header{
-  position: sticky;
-  display: flex;
-  margin: 0;
-  align-items: center;
-  background-color: black;
-  color: white;
-  width: 100vw;
+.color-btn::content{
+  font-family: "Font Awesome 5 Free";
+  content: "\f55d";
 }
 
-
-header logo{
-  font-size: 30px;
-  font-style: italic;
-  font-weight: bold;
-  /* margin-inline-end: 0; */
+.line-control button {
+  color: black;
 }
 
-header logo::after{
-  content: '.';
-  color: greenyellow;
+/* GALLERY */
+.select-img-container{
+  margin-top: 30px;
+/* display: flex; */
 }
 
-
-header a{
-  color: white;
-  font-size: 20px;
-  padding: 10px;
+img{
+  height: 200px;
+  width: 200px;
+  box-shadow: 5px 10px 8px #888888;
+  border-radius: 20px;
+  border: 2px solid gray;
+  cursor: pointer;
 }
 
+img:hover{
+  transform: translateY(-10px);
+}

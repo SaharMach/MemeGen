@@ -18,16 +18,12 @@ function renderGallery(){
 function onSelectImg(elImg) {
     console.log('elImg:', elImg)
     document.querySelector('.text-box').value = ''
+    document.querySelector('.select-img-container').classList.add('hide')
     onOpenEditor()
     setImg(elImg)
 }
 
-function onOpenEditor(){
-    document.querySelector('.editor-modal').classList.remove('hide')
-    document.querySelector('.editor-container').classList.remove('hide')
-}
 
-function onCloseEditor(){
-    document.querySelector('.editor-modal').classList.add('hide')
-    document.querySelector('.editor-container').classList.add('hide')
-}
+// function onGetRandomMeme(){
+//     getRandomMeme()
+// }
