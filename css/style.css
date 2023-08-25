@@ -2,6 +2,14 @@
 @import url(./helpers.css);
 @import url(./mq.css);
 
+*{
+  box-sizing: border-box
+}
+
+html{ 
+  font-style: italic;
+}
+
 body{
     position: relative;
     text-align: center;
@@ -10,12 +18,10 @@ body{
   
 /* HEADER */
 header{
-  position: sticky;
   display: flex;
   margin: 0;
   align-items: center;
   background:linear-gradient(135deg, #667eea 0%, #764ba2 100%);
- 
   color: white;
   width: 100%;
   justify-content: space-between;
@@ -24,18 +30,27 @@ header{
 
 header logo{
   font-size: 30px;
-  font-style: italic;
   font-weight: bold;
   /* margin-inline-end: 0; */
+}
+
+h3{
+  color: #667eea;
+  font-size: 30px;
+}
+
+header logo:after{
+  content: '.';
+  color: #764ba2;
+  font-size: 30px;
 }
 
 header a{
   color: white;
   font-size: 20px;
   padding: 10px;
+  text-decoration: none;
 }
-
-
 
 /* EDITOR */
 
@@ -55,6 +70,13 @@ canvas{
   height: 350px;
 }
 
+.btns-container button{
+  background-color: #abbaff;
+}
+
+.line-control{
+  margin-top: 5px;
+}
 
 .btn, .lines-btns button, .text-btns button{
   padding: 10px 15px;
@@ -92,23 +114,6 @@ canvas{
   align-self: center;  
 }
 
-.add-btn{
-  background-color: rgb(60, 255, 0)
-}
-
-.delete-btn{
-  background-color: red;
-}
-
-.toggle-btn{
-  margin-top: 5px;
-  background-color: rgb(0, 140, 255);
-}
-
-.clear-btn{
-  background-color: orange;
-}
-
 .text-box{
   height: max-content;
   height: 40px;
@@ -122,17 +127,30 @@ canvas{
   align-self: center;
 }
 
-.download-links i{
+.download-links a{
   color: white;
-  font-size: 14px;
+  font-size: 12px;
+  margin-right: 3px;
+}
+
+.download-links button{
+  border: none;
+  background: none;
+  color: white;
 }
 
 /* GALLERY */
 .select-img-container{
-  margin-top: 30px;
+  /* display: flex;
+    flex-direction: column;
+    align-items: center; */
+   margin-top: 30px;
 /* display: flex; */
 }
 
+.datalist{
+  margin-bottom: 20px;
+}
 img{
   height: 200px;
   width: 200px;
@@ -145,3 +163,30 @@ img{
 img:hover{
   transform: translateY(-10px);
 }
+
+/* SAVED-MEMES */
+.saved-memes-container{
+  margin-top: 20px;
+  background-color: #ffffff;
+}
+
+.saved-img{
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: max-content;
+}
+
+.saved-img button{
+  width:50px;
+  border-radius: 10px;
+  align-self: center;
+  margin-top: 5px;
+}
+
+.saved-img button:hover{
+  background-color: #abbaff;
+  transform: scale(1.1);
+  transition: transform 0.4s;
+}
+

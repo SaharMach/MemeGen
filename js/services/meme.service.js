@@ -42,13 +42,25 @@ function setLineText(val){
 }
 
 function setImg(img){
-    // console.log('img:', img.getAttribute('data-set'))
-    const imgId = +img.getAttribute('data-set')
-    // console.log('gMeme:', gMeme)
+    console.log('img:', img)
     resetMemeLines()
-    gMeme.selectedImgId =  imgId
-    renderMeme()
+    if(isNaN(img)){
+        const imgId = +img.getAttribute('data-set')
+        gMeme.selectedImgId =  imgId
+        renderMeme()
+    }
+    else{
+        const memeToShow = loadFromStorage(STORAGE_KEY)
+        console.log('memeToShowidx:', memeToShow[img])
+        renderMeme()
+    }
 }
+
+// function setImg(imgData){
+//     gMeme.selectedImgId = imgData;
+//     renderMeme();
+// }
+
 
 function resetMemeLines(){
     gMeme.lines.forEach(line => {
@@ -110,7 +122,6 @@ function clearInput(){
 function selectFontSize(val){
     gMeme.lines[gCurrLine].size = +val
 }
-
 
 function centerLine(){
     gMeme.lines[gCurrLine].x = 85

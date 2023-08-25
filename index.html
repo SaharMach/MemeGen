@@ -8,14 +8,18 @@
     <script src="https://kit.fontawesome.com/4293d7fb44.js" crossorigin="anonymous"></script>
 </head>
 <body onload="onInit()">
-
+    <section class="links-layout hide" onclick="toggleToolBar()">
+    </section>
     <header>
         <logo>myMemesGen</logo>
-        <section class="header-links">
-            <a href="#" onclick="onCloseEditor()">Gallery</a>
-            <a href="#">About</a>
-        </section>
+            <section class="header-links">
+                <a href="#" onclick="onCloseEditor()">Gallery</a>
+                <a href="#" onclick="onOpenSavedMemes()">Memes</a>
+                <a href="#">About</a>
+            </section>
+        <button class="bars-toggle" onclick="toggleToolBar()"><i class="fa-solid fa-bars"></i></button>
     </header>
+
     <section class="editor-modal hide">
     <div class="editor-container hide">
         <canvas class="myCanvas" id="myCan" width="350" height="350">
@@ -26,7 +30,7 @@
             <section class="lines-btns">
                 <button class="add-btn" onclick="onAddLine()">➕</button>
                 <button class="delete-btn" onclick="onDeleteLine()"><i class="fa-solid fa-delete-left"></i></button>
-                <button class="clear-btn" onclick="onClearInput()"><i class="fa-solid fa-eraser"></i></button>
+                <button class="clear-btn" onclick="onClearInput()"><i class="fa-solid fa-trash"></i></button>
                 <section class="line-control">
                     <button onclick="onMoveLine(-4)"><i class="fa-solid fa-chevron-up"></i></button>
                     <button onclick="onMoveLine(4)"><i class="fa-solid fa-chevron-down"></i></button>
@@ -51,26 +55,40 @@
                 </section>
             </section>
             <section class="download-links">
-                <a href="#" class="download-btn" onclick="downloadImg(this)" download="my-img.jpg"><i class="fa-solid fa-download"> Download</i></a>
+                <a href="#" class="download-btn" onclick="downloadImg(this)" download="my-img.jpg"><i class="fa-solid fa-download">Download</i></a>
+                <button href="" class="share-btn" onclick="onUploadImg()"><i class="fa-solid fa-share-nodes">Share</i></button>
+                <button href="" class="save-btn" onclick="onSaveImg()"><i class="fa-solid fa-floppy-disk">Save</i></button>
             </section>
             <button class="close-btn" onclick="onCloseEditor()"><i class="fa-solid fa-xmark"></i></button>
         </div>
     </div>
     </section>
 
+    <section class="gallery-container">
+        <section class="top-area">
+            <h3>Gallery</h3>
+            <input class="datalist" list="gallery-datalist" oninput="onSearchMeme(value)">
+            <datalist id="gallery-datalist"></datalist>
+        </section>
+        <section class="select-img-container">
+        </section>
+    </section>
 
-    
-    
-    <section class="select-img-container">
-</section>
+
+    <section class="saved-memes-container hide">
+    </section>
+
     <!-- <footer>
         <button onclick="onGetRandomMeme()">IM FLEXIBLE</button>
     </footer> -->
-    <script src="js/services/gallery.service.js"></script>
     <script src="js/services/util.service.js"></script>
+    <script src="js/services/gallery.service.js"></script>
     <script src="js/services/meme.service.js"></script>
+    <script src="js/services/saved-memes.service.js"></script>
     <script src="js/meme.controller.js"></script>
     <script src="js/gallery.controller.js"></script>
+    <script src="js/saved-memes.controller.js"></script>
+    <script src="js/share-on-facebook.js"></script>
    
 
 </body>

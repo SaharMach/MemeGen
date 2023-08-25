@@ -7,6 +7,8 @@ let gCtx
 let gToggle = false
 let gCurrFont = 'IMPACT'
 let gStartPos
+let savedMemesArr =[]
+const STORAGE_KEY = 'savedMemesDB'
 const TOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
 
 function onInit(){
@@ -15,8 +17,8 @@ function onInit(){
     renderMeme()
     addMouseListeners()
     addTouchListeners()
+    renderSavedMemes()
 }
-
 
 function renderMeme(){
     const meme = getMeme();
@@ -65,6 +67,7 @@ function onChangeFontSize(val){
 
 function downloadImg(elLink) {
     const imgContent = gElCanvas.toDataURL('image/jpeg')
+    console.log('elLink:', elLink)
     elLink.href = imgContent
 }
 
@@ -120,12 +123,15 @@ function onDeleteLine(){
 function onOpenEditor(){
     document.querySelector('.editor-modal').classList.remove('hide')
     document.querySelector('.editor-container').classList.remove('hide')
+    document.querySelector('.gallery-container input').classList.add('hide')
 }
 
 function onCloseEditor(){
     document.querySelector('.editor-modal').classList.add('hide')
     document.querySelector('.editor-container').classList.add('hide')
     document.querySelector('.select-img-container').classList.remove('hide')
+    document.querySelector('.saved-memes-container').classList.add('hide')
+    document.querySelector('.gallery-container input').classList.remove('hide')
 }
 
 function onMoveLine(val){
@@ -137,7 +143,7 @@ function addMouseListeners() {
     gElCanvas.addEventListener('mousedown', onDown)
     gElCanvas.addEventListener('mousemove', onMove)
     gElCanvas.addEventListener('mouseup', onUp)
-  }
+}
   
 function addTouchListeners() {
     gElCanvas.addEventListener('touchstart', onDown)
@@ -154,7 +160,6 @@ function onDown(ev) {
         document.body.style.cursor = 'grabbing'
     } 
 }
-
 
 function onUp() {
     console.log('onUp')
@@ -195,4 +200,22 @@ function gCtxMeasure(index){
     const meme = getMeme();
     const currLine = meme.lines[index]
      return gCtx.measureText(currLine.txt).width
+}
+
+function onSaveImg(){
+    const imgData = gElCanvas.toDataURL()
+    savedMemesArr.unshift(imgData)
+    // console.log('imgData:', imgData)
+    console.log('savedMemesArr:', savedMemesArr)
+    saveToStorage(STORAGE_KEY, savedMemesArr)
+    renderSavedMemes()
+}
+
+
+function onOpenSavedMemes(){
+    document.querySelector('.select-img-container').classList.add('hide')
+    document.querySelector('.saved-memes-container').classList.remove('hide')
+    document.querySelector('.editor-modal').classList.add('hide')
+    document.querySelector('.gallery-container .top-area').classList.add('hide')
+    renderSavedMemes()
 }
