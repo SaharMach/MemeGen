@@ -12,7 +12,7 @@ var gImgs = [
     {id: 6,url:'imgs/6.jpg',keywords:['weirdguy,funny']},
     {id: 7,url:'imgs/7.jpg',keywords:['baby,funny']},
     {id: 8,url:'imgs/8.jpg',keywords:['man,funny']},
-    {id: 9,url:'imgs/9.jpg',keywords:['baby,laugh']},
+    {id: 9,url:'imgs/9.jpg',keywords:['baby']},
     {id: 10,url:'imgs/10.jpg',keywords:['funny']},
     {id: 11,url:'imgs/11.jpg',keywords:['funny']},
     {id: 12,url:'imgs/12.jpg',keywords:['what would u do?']},
@@ -22,8 +22,8 @@ var gImgs = [
     {id: 16,url:'imgs/16.jpg',keywords:['professor x']},
     {id: 17,url:'imgs/17.jpg',keywords:['putin']},
     {id: 18,url:'imgs/18.jpg',keywords:['buzz, hoodie']},
-
 ] 
+
 
 function getImgs(){
     if(!gFilteredMemes.length){
@@ -48,6 +48,11 @@ function getRandomMeme(){
 
 function searchMeme(val){
     let gFilter = val.toUpperCase()
+    if (gKeywordSearchCountMap[val]) {
+        gKeywordSearchCountMap[val]++;
+        renderKeyWordsOnGallery()
+    }
+    console.log('gFilter:', gFilter)
     gFilteredMemes = gImgs.filter((img) =>{
         return img.keywords.some(keyword => 
             keyword.toUpperCase().includes(gFilter))
@@ -55,10 +60,17 @@ function searchMeme(val){
     return gFilteredMemes
 }
 
+let keywords = []
 function getKeyWords(){
-    let keywords = []
     gImgs.filter(img =>{
         keywords.push(img.keywords)
     })
     return keywords
+}
+
+var gKeywordSearchCountMap = {'funny': 12,'cat': 16, 'baby': 2, 'dog':3, 'trump':1}
+
+
+function getKeyWordsMap(){
+    return gKeywordSearchCountMap
 }

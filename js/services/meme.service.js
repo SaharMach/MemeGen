@@ -1,7 +1,7 @@
 'use strict'
 
 
-var gCurrLine = 0
+let gCurrLine = 0
 var gMeme = {
     selectedImgId: 1,
     selectedLineIdx: 0,
@@ -29,10 +29,17 @@ var gMeme = {
     ]
 }
 
-var gKeywordSearchCountMap = {'funny': 12,'cat': 16, 'baby': 2}
+
+const gEmojis = ['🤡','💩','💚','😻','🤬','🥵','👻','🤮','😊','😇']
+
 
 function getMeme(){
     return gMeme
+}
+
+function getEmojis(){
+    console.log('gEmojis:', gEmojis)
+    return gEmojis
 }
 
 function setLineText(val){
@@ -139,7 +146,7 @@ function alignRight(){
 
 function deleteLine(){
     if(!gMeme.lines[gCurrLine]) return
-    gMeme.lines.splice(0,1)
+    gMeme.lines.splice(gCurrLine,1)
 }
 
 function moveLine(val){
@@ -186,4 +193,20 @@ function getCurrLine(){
 function grabMoveLine(dx,dy){
     gMeme.lines[gCurrLine].x += dx
     gMeme.lines[gCurrLine].y += dy
+}
+
+function addEmoji(id){
+    console.log('id:', id)
+    const emoji = gEmojis[id]
+    return emoji
+}
+
+// function saveImg(){
+//     return gMeme.
+// }
+
+function setMemeState(savedMemeData) {
+    console.log('savedMemeData:', savedMemeData)
+    gMeme.lines = savedMemeData;
+    gCurrLine = 0
 }

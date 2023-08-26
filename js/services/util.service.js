@@ -36,3 +36,7 @@ function loadFromStorage(key) {
     var val = localStorage.getItem(key)
     return JSON.parse(val)
 }
+
+function handleSelector(selectior){
+    return document.querySelector(selectior)
+}

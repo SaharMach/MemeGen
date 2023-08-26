@@ -29,7 +29,7 @@ header{
 }
 
 header logo{
-  font-size: 30px;
+  font-size: 45px;
   font-weight: bold;
   /* margin-inline-end: 0; */
 }
@@ -42,7 +42,7 @@ h3{
 header logo:after{
   content: '.';
   color: #764ba2;
-  font-size: 30px;
+  font-size: 45px;
 }
 
 header a{
@@ -50,6 +50,10 @@ header a{
   font-size: 20px;
   padding: 10px;
   text-decoration: none;
+}
+
+.bars-toggle:hover{
+  cursor: pointer;
 }
 
 /* EDITOR */
@@ -139,13 +143,63 @@ canvas{
   color: white;
 }
 
+.download-links button:hover{
+  cursor: pointer;
+}
+
+.emoji-slider {
+  display: flex;
+  align-items: center;
+  justify-self: center;
+}
+
+.emoji-window {
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  width: 130px; 
+  height: 40px;
+}
+
+.emoji-list {
+  display: flex;
+  transition: all 0.3s;
+}
+
+.emoji-list span {
+  font-size: 30px;
+  width: 40px;
+  text-align: center;
+}
+
+.arrow {
+  font-size: 20px;
+  cursor: pointer;
+  border: none;
+  background-color: #eee;
+  transition: background-color 0.3s;
+}
+
+.arrow:hover {
+  background-color: #ddd;
+}
+
+.emoji-list span:hover{
+  cursor: pointer;
+  transform: scale(1.2);
+  transition: transform 0.4s;
+}
+
 /* GALLERY */
 .select-img-container{
-  /* display: flex;
-    flex-direction: column;
-    align-items: center; */
+  width: 70vw;
+  justify-self: center;
    margin-top: 30px;
-/* display: flex; */
+}
+
+.gallery-container{
+  display: grid;
+  grid-auto-flow: dense;
 }
 
 .datalist{
@@ -162,6 +216,14 @@ img{
 
 img:hover{
   transform: translateY(-10px);
+}
+
+.keywords{
+  margin-bottom: 10px;
+}
+
+.keywords:hover{
+  cursor: pointer;
 }
 
 /* SAVED-MEMES */
@@ -189,4 +251,11 @@ img:hover{
   transform: scale(1.1);
   transition: transform 0.4s;
 }
+
+.saved-imgs-container{
+  display: flex;
+  justify-content: center;
+}
+
+
 

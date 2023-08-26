@@ -7,40 +7,38 @@ let gCtx
 let gToggle = false
 let gCurrFont = 'IMPACT'
 let gStartPos
-let savedMemesArr =[]
+let savedMemesURL = []
+
+let gEmojiIdx = 0;
+
 const STORAGE_KEY = 'savedMemesDB'
 const TOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
 
 function onInit(){
     gElCanvas = document.querySelector('canvas')
     gCtx = gElCanvas.getContext('2d')
+    renderGallery()
+    renderKeyWords()
+    renderKeyWordsOnGallery()
     renderMeme()
     addMouseListeners()
     addTouchListeners()
     renderSavedMemes()
+    renderEmojis()
+    
 }
 
 function renderMeme(){
     const meme = getMeme();
-    // console.log('meme:', meme)
-    // console.log('meme:', meme.selectedImgId)
     const selectedImg = findImg(meme.selectedImgId)
-    // console.log('selectedImg:', selectedImg)
     const img = new Image();
-    // console.log('img:', img)
-    img.src = selectedImg.url;
-    
-    
+    img.src = selectedImg.url;    
     img.onload = () => {
      gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height);
      meme.lines.forEach((line,idx) => {
-        
-        // console.log('gCtx:', gCtx)
          gCtx.font = `${line.size}px ${gCurrFont}`;
          gCtx.fillStyle = line.color;
          gCtx.fillText(line.txt, line.x,line.y);
-
-        //  console.log('line.txt:', line.txt.length)
          if(idx === meme.selectedLineIdx){
              const textWidth = gCtx.measureText(line.txt)
             gCtx.strokeStyle = 'white'
@@ -48,12 +46,12 @@ function renderMeme(){
             }
      });
     }
- }
+}
 
 function onUpdateText(val){
     setLineText(val)
     renderMeme()
- }
+}
 
 function onSetColor(val){
     setColor(val)
@@ -121,17 +119,17 @@ function onDeleteLine(){
 }
 
 function onOpenEditor(){
-    document.querySelector('.editor-modal').classList.remove('hide')
-    document.querySelector('.editor-container').classList.remove('hide')
-    document.querySelector('.gallery-container input').classList.add('hide')
+    handleSelector('.editor-modal').classList.remove('hide')
+    handleSelector('.editor-container').classList.remove('hide')
+    handleSelector('.top-area').classList.add('hide')
 }
 
 function onCloseEditor(){
-    document.querySelector('.editor-modal').classList.add('hide')
-    document.querySelector('.editor-container').classList.add('hide')
-    document.querySelector('.select-img-container').classList.remove('hide')
-    document.querySelector('.saved-memes-container').classList.add('hide')
-    document.querySelector('.gallery-container input').classList.remove('hide')
+    handleSelector('.editor-modal').classList.add('hide')
+    handleSelector('.editor-container').classList.add('hide')
+    handleSelector('.select-img-container').classList.remove('hide')
+    handleSelector('.saved-memes-container').classList.add('hide')
+    handleSelector('.top-area').classList.remove('hide')
 }
 
 function onMoveLine(val){
@@ -153,7 +151,6 @@ function addTouchListeners() {
 
 function onDown(ev) {
     const pos = getEvPos(ev)     
-    console.log('pos', pos)
     if (isLineClicked(pos)){
         setLineDrag(true) 
         gStartPos = pos
@@ -162,10 +159,10 @@ function onDown(ev) {
 }
 
 function onUp() {
-    console.log('onUp')
     setLineDrag(false)
-    document.body.style.cursor = 'grab'
+    document.body.style.cursor = 'auto'
 }
+
 function onMove(ev) {
         const isDrag = getCurrLine().isDrag   
         if (!isDrag) return
@@ -186,6 +183,7 @@ function getEvPos(ev) {
       // Prevent triggering the mouse ev
       ev.preventDefault()
       // Gets the first touch point
+      console.log('ev:', ev)
       ev = ev.changedTouches[0]
       // Calc the right pos according to the touch screen
       pos = {
@@ -194,7 +192,7 @@ function getEvPos(ev) {
       }
     }
     return pos
-  }
+}
 
 function gCtxMeasure(index){
     const meme = getMeme();
@@ -202,20 +200,56 @@ function gCtxMeasure(index){
      return gCtx.measureText(currLine.txt).width
 }
 
+let savedMemesData = []
 function onSaveImg(){
     const imgData = gElCanvas.toDataURL()
-    savedMemesArr.unshift(imgData)
-    // console.log('imgData:', imgData)
-    console.log('savedMemesArr:', savedMemesArr)
-    saveToStorage(STORAGE_KEY, savedMemesArr)
+    const drawnImg = getMeme()
+    console.log('drawnImg:', drawnImg)
+    savedMemesData.unshift(drawnImg)
+    savedMemesURL.unshift(imgData)
+    saveToStorage(STORAGE_KEY,savedMemesURL)
+    saveToStorage('savedMemesDataDB', savedMemesData)
     renderSavedMemes()
 }
-
 
 function onOpenSavedMemes(){
-    document.querySelector('.select-img-container').classList.add('hide')
-    document.querySelector('.saved-memes-container').classList.remove('hide')
-    document.querySelector('.editor-modal').classList.add('hide')
-    document.querySelector('.gallery-container .top-area').classList.add('hide')
+    handleSelector('.select-img-container').classList.add('hide')
+    handleSelector('.saved-memes-container').classList.remove('hide')
+    handleSelector('.editor-modal').classList.add('hide')
+    handleSelector('.gallery-container .top-area').classList.add('hide')
     renderSavedMemes()
 }
+
+function renderEmojis(){
+    const emojis = getEmojis()
+    const elSlider = handleSelector('.emoji-list')
+    // console.log('emojis:', emojis)
+    let id = 0
+    let strHTML = ``
+    emojis.forEach(emoji => {
+        // console.log('emoji:', emoji)
+        strHTML += `<span id="${id++}" onclick="onAddEmoji(this)">${emoji}</span>`
+    })
+    elSlider.innerHTML = strHTML
+}
+
+function slide(direction) {
+    const emojis = document.querySelectorAll('.emoji-list span');
+    const visibleCount = 3;
+    if (direction === 'left') {
+        gEmojiIdx = Math.max(gEmojiIdx - 1, 0);
+    } else if (direction === 'right') {
+        gEmojiIdx = Math.min(gEmojiIdx + 1, emojis.length - visibleCount);
+    }
+    const offset = -gEmojiIdx * 40;
+    handleSelector('.emoji-list').style.transform = `translateX(${offset}px)`;
+}
+
+function onAddEmoji(elEmoji){
+    const emojiId = elEmoji.getAttribute('id')
+    const emoji = addEmoji(emojiId)
+    console.log('emoji:', emoji)
+    gCtx.fillText(emoji, getRandomIntInclusive(20,330),getRandomIntInclusive(20,330));
+    // renderMeme()
+}
+

@@ -54,6 +54,14 @@
                     </select>
                 </section>
             </section>
+            <div class="emoji-slider">
+                <button class="arrow left" onclick="slide('left')">&lt;</button>
+                <div class="emoji-window">
+                <div class="emoji-list">
+                </div>
+                 </div>
+                <button class="arrow right" onclick="slide('right')">&gt;</button>
+            </div>
             <section class="download-links">
                 <a href="#" class="download-btn" onclick="downloadImg(this)" download="my-img.jpg"><i class="fa-solid fa-download">Download</i></a>
                 <button href="" class="share-btn" onclick="onUploadImg()"><i class="fa-solid fa-share-nodes">Share</i></button>
@@ -67,7 +75,11 @@
     <section class="gallery-container">
         <section class="top-area">
             <h3>Gallery</h3>
-            <input class="datalist" list="gallery-datalist" oninput="onSearchMeme(value)">
+            <section class="keywords">
+                
+            </section>
+            <!-- <input type="file" class="file-input btn" name="image" onchange="onImgInput(event)" accept="image/*"/> -->
+            <input class="datalist" list="gallery-datalist" placeholder="Search for meme" oninput="onSearchMeme(value)">
             <datalist id="gallery-datalist"></datalist>
         </section>
         <section class="select-img-container">
