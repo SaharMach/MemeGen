@@ -1,8 +1,8 @@
 'use strict'
 
-
-let gFilteredMemes =[]
-
+var keywords = []
+var gFilteredMemes =[]
+var gKeywordSearchCountMap = {'funny': 12,'cat': 16, 'baby': 2, 'dog':3, 'trump':1}
 var gImgs = [
     {id: 1, url: 'imgs/1.jpg', keywords: ['trump,funny']},
     {id: 2,url:'imgs/2.jpg',keywords:['dogs,cute']},
@@ -23,7 +23,6 @@ var gImgs = [
     {id: 17,url:'imgs/17.jpg',keywords:['putin']},
     {id: 18,url:'imgs/18.jpg',keywords:['buzz, hoodie']},
 ] 
-
 
 function getImgs(){
     if(!gFilteredMemes.length){
@@ -47,6 +46,7 @@ function getRandomMeme(){
 }
 
 function searchMeme(val){
+
     let gFilter = val.toUpperCase()
     if (gKeywordSearchCountMap[val]) {
         gKeywordSearchCountMap[val]++;
@@ -60,7 +60,7 @@ function searchMeme(val){
     return gFilteredMemes
 }
 
-let keywords = []
+
 function getKeyWords(){
     gImgs.filter(img =>{
         keywords.push(img.keywords)
@@ -68,9 +68,13 @@ function getKeyWords(){
     return keywords
 }
 
-var gKeywordSearchCountMap = {'funny': 12,'cat': 16, 'baby': 2, 'dog':3, 'trump':1}
-
-
 function getKeyWordsMap(){
-    return gKeywordSearchCountMap
+    const map = loadFromStorage('countMap')
+    if (!map) return gKeywordSearchCountMap
+    else return map
+}
+
+function keywordClicked(keyword){
+    gKeywordSearchCountMap[keyword]++
+    saveToStorage('countMap', gKeywordSearchCountMap)
 }

@@ -55,13 +55,16 @@ function renderKeyWordsOnGallery(){
     for(let keyword in keywordsMap){
         const fontSize = keywordsMap[keyword]
         const minSize = 10
-        strHTML += `<span style="font-size:${minSize+fontSize}px; margin-left:20px;" 
-        onclick="keywordClicked('${keyword}')">${keyword}</span>`
+        strHTML += `<span style="font-size:${minSize+fontSize}px;" 
+        onclick="onKeywordClicked('${keyword}')">${keyword}</span>`
     }
     elSection.innerHTML = strHTML
 }
 
-function keywordClicked(keyword){
-    gKeywordSearchCountMap[keyword]++;
-    renderKeyWordsOnGallery();
+function onKeywordClicked(keyword){
+    keywordClicked(keyword)
+    const elBox = handleSelector('.datalist')
+    elBox.value = keyword
+    onSearchMeme(keyword)
+    renderKeyWordsOnGallery()
 }

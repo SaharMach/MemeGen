@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/style.css">
-    <title>Document</title>
+    <title>myMemesGen</title>
     <script src="https://kit.fontawesome.com/4293d7fb44.js" crossorigin="anonymous"></script>
 </head>
 <body onload="onInit()">
     <section class="links-layout hide" onclick="toggleToolBar()">
     </section>
     <header>
-        <logo>myMemesGen</logo>
+        <logo onclick="onCloseEditor()">myMemesGen</logo>
             <section class="header-links">
                 <a href="#" onclick="onCloseEditor()">Gallery</a>
                 <a href="#" onclick="onOpenSavedMemes()">Memes</a>
@@ -25,8 +25,7 @@
         <canvas class="myCanvas" id="myCan" width="350" height="350">
         </canvas>
         <div class="btns-container grid">
-            <input class="text-box" type="text" placeholder="Add TEXT" oninput="onUpdateText(value)">
-
+            <input class="text-box" type="text" placeholder="Add TEXT" autofocus oninput="onUpdateText(value)">
             <section class="lines-btns">
                 <button class="add-btn" onclick="onAddLine()">➕</button>
                 <button class="delete-btn" onclick="onDeleteLine()"><i class="fa-solid fa-delete-left"></i></button>
@@ -34,7 +33,7 @@
                 <section class="line-control">
                     <button onclick="onMoveLine(-4)"><i class="fa-solid fa-chevron-up"></i></button>
                     <button onclick="onMoveLine(4)"><i class="fa-solid fa-chevron-down"></i></button>
-                    <button class="toggle-btn" onclick="onToggleTextBox()">⇅</button>
+                    <button class="toggle-btn" onclick="onToggleTextBox()"><i class="fa-solid fa-up-down"></i></button>
                 </section>
             </section>
 
@@ -45,9 +44,9 @@
                 <button onclick="onChangeFontSize(5)">A+</button>
                 <button onclick="onChangeFontSize(-5)">A-</button>
                 <section class="text-changers">
-                    <input class="font-input" type="number" onchange="onSelectFontSize(value)">
-                    <input class="color-btn" type="color" onchange="onSetColor(value)">
-                    <select class="font-select" name="font" id="" onchange="onChangeFontStyle(value)">
+                    <input class="font-input" type="number" oninput="onSelectFontSize(value)">
+                    <input class="color-btn" type="color" oninput="onSetColor(value)">
+                    <select class="font-select" name="font" id="" oninput="onChangeFontStyle(value)">
                         <option value="IMPACT">IMPACT</option>
                         <option value="Arial">Arial</option>
                         <option value="italic">italic</option>
@@ -57,30 +56,38 @@
             <div class="emoji-slider">
                 <button class="arrow left" onclick="slide('left')">&lt;</button>
                 <div class="emoji-window">
-                <div class="emoji-list">
+                <div class="emoji-list"></div>
                 </div>
-                 </div>
                 <button class="arrow right" onclick="slide('right')">&gt;</button>
             </div>
             <section class="download-links">
-                <a href="#" class="download-btn" onclick="downloadImg(this)" download="my-img.jpg"><i class="fa-solid fa-download">Download</i></a>
-                <button href="" class="share-btn" onclick="onUploadImg()"><i class="fa-solid fa-share-nodes">Share</i></button>
-                <button href="" class="save-btn" onclick="onSaveImg()"><i class="fa-solid fa-floppy-disk">Save</i></button>
+                <a title="Download meme" href="#" class="download-btn" onclick="downloadImg(this)" download="my-img.jpg">
+                    <i class="fa-solid fa-download"></i></a>
+                <button title="Save meme" href="" class="save-btn" onclick="onSaveImg()">
+                    <i class="fa-solid fa-floppy-disk"></i>
+                </button>
+                <button title="Share via facebook"  href="" class="share-btn" onclick="onUploadImg('facebook')">
+                    <i class="fa-brands fa-facebook"></i>
+                </button>
+                <button title="Share via whatsapp" class="whatsapp-btn" href="" data-action="share/whatsapp/share" 
+                onclick="onUploadImg('whatsapp')"><i class="fa-brands fa-whatsapp"></i>
+                </button>
             </section>
-            <button class="close-btn" onclick="onCloseEditor()"><i class="fa-solid fa-xmark"></i></button>
+            <button class="close-btn" onclick="onCloseEditor()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
         </div>
     </div>
     </section>
 
     <section class="gallery-container">
         <section class="top-area">
-            <h3>Gallery</h3>
-            <section class="keywords">
-                
-            </section>
             <!-- <input type="file" class="file-input btn" name="image" onchange="onImgInput(event)" accept="image/*"/> -->
+            <!-- <button class="btn-search"><i class="fas fa-search"></i></button> -->
             <input class="datalist" list="gallery-datalist" placeholder="Search for meme" oninput="onSearchMeme(value)">
             <datalist id="gallery-datalist"></datalist>
+            <section class="keywords">
+            </section>
         </section>
         <section class="select-img-container">
         </section>
@@ -90,9 +97,15 @@
     <section class="saved-memes-container hide">
     </section>
 
-    <!-- <footer>
-        <button onclick="onGetRandomMeme()">IM FLEXIBLE</button>
-    </footer> -->
+    <footer>
+        <section class="footer-links-container">
+           <a href=""><i class="fa-brands fa-whatsapp"></i></a> 
+           <a href=""></a><i class="fa-brands fa-facebook"></i></a> 
+           <a href=""></a><i class="fa-brands fa-linkedin"></i></a> 
+           <a href=""><i class="fa-brands fa-github"></i></a> 
+        </section>
+        <aside>ⓒSahar Machpud 2023</aside>
+    </footer>
     <script src="js/services/util.service.js"></script>
     <script src="js/services/gallery.service.js"></script>
     <script src="js/services/meme.service.js"></script>

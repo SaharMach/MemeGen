@@ -7,46 +7,51 @@ let gCtx
 let gToggle = false
 let gCurrFont = 'IMPACT'
 let gStartPos
-let savedMemesURL = []
+
 
 let gEmojiIdx = 0;
 
+
+const savedMemesURL = []
+const savedMemesData = []
 const STORAGE_KEY = 'savedMemesDB'
 const TOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
 
 function onInit(){
     gElCanvas = document.querySelector('canvas')
     gCtx = gElCanvas.getContext('2d')
+    addMouseListeners()
+    addTouchListeners()
     renderGallery()
     renderKeyWords()
     renderKeyWordsOnGallery()
-    renderMeme()
-    addMouseListeners()
-    addTouchListeners()
-    renderSavedMemes()
     renderEmojis()
-    
+    renderMeme()
+    renderSavedMemes()
 }
 
 function renderMeme(){
-    const meme = getMeme();
+    const meme = getMeme()
     const selectedImg = findImg(meme.selectedImgId)
-    const img = new Image();
-    img.src = selectedImg.url;    
+    const img = new Image()
+    img.src = selectedImg.url   
     img.onload = () => {
-     gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height);
-     meme.lines.forEach((line,idx) => {
-         gCtx.font = `${line.size}px ${gCurrFont}`;
-         gCtx.fillStyle = line.color;
-         gCtx.fillText(line.txt, line.x,line.y);
-         if(idx === meme.selectedLineIdx){
-             const textWidth = gCtx.measureText(line.txt)
-            gCtx.strokeStyle = 'white'
-            gCtx.strokeRect(line.x,line.y - line.size, textWidth.width+2 , line.size+2)
+        gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
+        meme.lines.forEach((line,idx) => {
+            gCtx.font = `${line.size}px ${gCurrFont}`
+            gCtx.fillStyle = line.color
+            gCtx.fillText(line.txt, line.x,line.y)
+            if(gIsStroke && idx === meme.selectedLineIdx){
+                const textWidth = gCtx.measureText(line.txt)
+                gCtx.strokeStyle = 'white'
+                gCtx.strokeRect(line.x,line.y - line.size, textWidth.width+2 , line.size+2)
             }
-     });
+        });
     }
+    gIsStroke = true
 }
+
+let gIsStroke = true
 
 function onUpdateText(val){
     setLineText(val)
@@ -63,7 +68,15 @@ function onChangeFontSize(val){
     renderMeme()
 }
 
+
+//not working!
+function clearStroke(){
+    gIsStroke = !gIsStroke
+    renderMeme()
+}
+
 function downloadImg(elLink) {
+    clearStroke()
     const imgContent = gElCanvas.toDataURL('image/jpeg')
     console.log('elLink:', elLink)
     elLink.href = imgContent
@@ -121,7 +134,8 @@ function onDeleteLine(){
 function onOpenEditor(){
     handleSelector('.editor-modal').classList.remove('hide')
     handleSelector('.editor-container').classList.remove('hide')
-    handleSelector('.top-area').classList.add('hide')
+    handleSelector('.top-area input').classList.add('hide')
+    handleSelector('.top-area .keywords').classList.add('hide')
 }
 
 function onCloseEditor(){
@@ -129,7 +143,9 @@ function onCloseEditor(){
     handleSelector('.editor-container').classList.add('hide')
     handleSelector('.select-img-container').classList.remove('hide')
     handleSelector('.saved-memes-container').classList.add('hide')
-    handleSelector('.top-area').classList.remove('hide')
+    handleSelector('.gallery-container').classList.remove('hide')
+    handleSelector('.top-area input').classList.remove('hide')
+    handleSelector('.top-area .keywords').classList.remove('hide')
 }
 
 function onMoveLine(val){
@@ -200,34 +216,43 @@ function gCtxMeasure(index){
      return gCtx.measureText(currLine.txt).width
 }
 
-let savedMemesData = []
 function onSaveImg(){
     const imgData = gElCanvas.toDataURL()
+    console.log('imgData:', imgData)
     const drawnImg = getMeme()
     console.log('drawnImg:', drawnImg)
     savedMemesData.unshift(drawnImg)
     savedMemesURL.unshift(imgData)
-    saveToStorage(STORAGE_KEY,savedMemesURL)
+    saveToStorage(STORAGE_KEY, savedMemesURL)
     saveToStorage('savedMemesDataDB', savedMemesData)
     renderSavedMemes()
+}
+
+function shareOnWhatsapp(){
+    const imgData = gElCanvas.toDataURL()
+    const elBtn = handleSelector('.whatsapp-btn')
+    console.log('elBtn:', elBtn)
+    // const strHTML = `href:whatsapp://send?text=${encodeURIComponent(imgData)}`
+    // elBtn.innerHTML += strHTML
+    elBtn.setAttribute('href', 'whatsapp://send?text='+encodeURIComponent(imgData))
 }
 
 function onOpenSavedMemes(){
     handleSelector('.select-img-container').classList.add('hide')
     handleSelector('.saved-memes-container').classList.remove('hide')
     handleSelector('.editor-modal').classList.add('hide')
-    handleSelector('.gallery-container .top-area').classList.add('hide')
+    handleSelector('.gallery-container').classList.add('hide')
+    handleSelector('.top-area input').classList.add('hide')
+    handleSelector('.top-area .keywords').classList.add('hide')
     renderSavedMemes()
 }
 
 function renderEmojis(){
     const emojis = getEmojis()
     const elSlider = handleSelector('.emoji-list')
-    // console.log('emojis:', emojis)
     let id = 0
     let strHTML = ``
     emojis.forEach(emoji => {
-        // console.log('emoji:', emoji)
         strHTML += `<span id="${id++}" onclick="onAddEmoji(this)">${emoji}</span>`
     })
     elSlider.innerHTML = strHTML
@@ -247,9 +272,7 @@ function slide(direction) {
 
 function onAddEmoji(elEmoji){
     const emojiId = elEmoji.getAttribute('id')
-    const emoji = addEmoji(emojiId)
-    console.log('emoji:', emoji)
-    gCtx.fillText(emoji, getRandomIntInclusive(20,330),getRandomIntInclusive(20,330));
-    // renderMeme()
+    addEmoji(emojiId)
+    renderMeme()
 }
 

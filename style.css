@@ -21,7 +21,7 @@ header{
   display: flex;
   margin: 0;
   align-items: center;
-  background:linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background:#667eea;
   color: white;
   width: 100%;
   justify-content: space-between;
@@ -32,6 +32,11 @@ header logo{
   font-size: 45px;
   font-weight: bold;
   /* margin-inline-end: 0; */
+}
+
+header logo:hover{
+  cursor: pointer;
+  color: rgb(231, 231, 231);
 }
 
 h3{
@@ -68,7 +73,7 @@ canvas{
 .btns-container{
   display: grid;
   grid-template-rows: repeat(4, 1fr); 
-  background:linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background:#667eea;
   border-radius: 30px;
   border: 2px solid gray;
   height: 350px;
@@ -78,12 +83,10 @@ canvas{
   background-color: #abbaff;
 }
 
-.line-control{
-  margin-top: 5px;
-}
-
 .btn, .lines-btns button, .text-btns button{
-  padding: 10px 15px;
+  height: 50px;
+  width: 50px;
+  margin-top: 5px;
   border: none;
   border-radius: 5px;
   transition: background-color 0.2s, transform 0.2s;
@@ -94,7 +97,8 @@ canvas{
 
 .btn:hover, .lines-btns button:hover, .text-btns button:hover {
   /* background-color: rgba(0, 128, 255, 0.8);  */
-  transform: scale(1.2); 
+  /* transform: scale(1.1);  */
+  opacity: 0.8;
 }
 
 .text-btns{
@@ -133,8 +137,8 @@ canvas{
 
 .download-links a{
   color: white;
-  font-size: 12px;
-  margin-right: 3px;
+  margin-right: 5px;
+  margin-bottom: 2px;
 }
 
 .download-links button{
@@ -143,8 +147,13 @@ canvas{
   color: white;
 }
 
-.download-links button:hover{
+.download-links i{
+  font-size: 25px;
+}
+
+.download-links i:hover{
   cursor: pointer;
+  opacity: 0.6;
 }
 
 .emoji-slider {
@@ -202,34 +211,48 @@ canvas{
   grid-auto-flow: dense;
 }
 
-.datalist{
-  margin-bottom: 20px;
-}
 img{
   height: 200px;
   width: 200px;
-  box-shadow: 5px 10px 8px #888888;
+  /* box-shadow:inset 5px 10px 8px #888888; */
   border-radius: 20px;
-  border: 2px solid gray;
   cursor: pointer;
+  padding: 5px;
 }
 
 img:hover{
-  transform: translateY(-10px);
+  opacity: 0.6;
+  transition: opacity 0.4s;
 }
 
-.keywords{
-  margin-bottom: 10px;
+.keywords span:not(:first-child){
+  margin-left: 10px;
 }
 
-.keywords:hover{
+.keywords span:hover{
   cursor: pointer;
+  color: #667eea;
+}
+
+.top-area{
+  align-items: center;
+  justify-content: center;
+  margin-top: 35px;
+  width: 100%;
+}
+
+.datalist{
+  width: 300px;
+  height: 40px;
+  border-radius: 20px;
+  background-color: #667eea2e;
 }
 
 /* SAVED-MEMES */
 .saved-memes-container{
   margin-top: 20px;
   background-color: #ffffff;
+  height: 100vh;
 }
 
 .saved-img{
@@ -255,6 +278,44 @@ img:hover{
 .saved-imgs-container{
   display: flex;
   justify-content: center;
+}
+
+
+/* FOOTER */
+footer{
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  bottom: 0;
+  margin-top: 20px;
+  background:#667eea;
+  color: white;
+  width: 100%;
+  border-radius: 5px;
+}
+
+.footer-links-container{
+  display: flex;
+}
+
+footer i{
+  
+  color: white;
+  font-size: 30px;
+  padding: 10px; 
+}
+
+footer i:hover{
+  cursor: pointer;
+  color: rgb(0, 0, 0);
+  transform: rotateY(360deg);
+  transition: transform 1s;
+}
+
+footer aside{
+  position: absolute;
+  font-size: 10px;
+  opacity: 0.4;
 }
 
 

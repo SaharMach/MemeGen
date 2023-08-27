@@ -1,11 +1,17 @@
-function onUploadImg() {
+function onUploadImg(val) {
+    console.log('val:', val)
     // Gets the image from the canvas
     const imgDataUrl = gElCanvas.toDataURL('image/jpeg') 
 
     function onSuccess(uploadedImgUrl) {
         // Handle some special characters
+        console.log('valsss:', val)
         const url = encodeURIComponent(uploadedImgUrl)
-        window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}&t=${url}`)
+        console.log('url:', url)
+        if(val === 'facebook'){
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}&t=${url}`)
+        }
+        else if(val === 'whatsapp') window.open(`https://wa.me/?text=${url}`)
     }
     
     // Send the image to the server

@@ -2,12 +2,13 @@
 
 
 let gCurrLine = 0
+let gCurrId = 0
 var gMeme = {
     selectedImgId: 1,
     selectedLineIdx: 0,
     lines: [
         {
-            id: 0,
+            id: gCurrId++,
             txt: 'FunnyText', 
             size: 30,
             color: 'white',
@@ -17,7 +18,7 @@ var gMeme = {
             isClicked: false
         } ,
         {
-            id:1,
+            id:gCurrId++,
             txt: 'FunnyText',
             size: 30,
             color: 'white',
@@ -28,17 +29,13 @@ var gMeme = {
         }
     ]
 }
-
-
 const gEmojis = ['🤡','💩','💚','😻','🤬','🥵','👻','🤮','😊','😇']
-
 
 function getMeme(){
     return gMeme
 }
 
 function getEmojis(){
-    console.log('gEmojis:', gEmojis)
     return gEmojis
 }
 
@@ -62,12 +59,6 @@ function setImg(img){
         renderMeme()
     }
 }
-
-// function setImg(imgData){
-//     gMeme.selectedImgId = imgData;
-//     renderMeme();
-// }
-
 
 function resetMemeLines(){
     gMeme.lines.forEach(line => {
@@ -101,11 +92,8 @@ function toggleTextBox(){
 }
 
 function addLine(){
-    // console.log('hey');
-    // console.log('gMeme.lines.length:', gMeme.lines.length)
-    if(gMeme.lines.length === 3) return
     const line =   {
-            id:2,
+            id:gCurrId++,
             txt: 'FunnyText',
             size: 30,
             color: 'white',
@@ -197,13 +185,18 @@ function grabMoveLine(dx,dy){
 
 function addEmoji(id){
     console.log('id:', id)
-    const emoji = gEmojis[id]
+    const emoji = {id:gCurrId++,
+        txt: gEmojis[id],
+        size: 30,
+        color: 'white',
+        x:30,
+        y:175,
+        isDrag: false,
+        isClicked: false
+    }
+    gMeme.lines.push(emoji)
     return emoji
 }
-
-// function saveImg(){
-//     return gMeme.
-// }
 
 function setMemeState(savedMemeData) {
     console.log('savedMemeData:', savedMemeData)
