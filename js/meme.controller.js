@@ -7,8 +7,6 @@ let gCtx
 let gToggle = false
 let gCurrFont = 'IMPACT'
 let gStartPos
-
-
 let gEmojiIdx = 0;
 
 
@@ -203,8 +201,8 @@ function getEvPos(ev) {
       ev = ev.changedTouches[0]
       // Calc the right pos according to the touch screen
       pos = {
-        x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
-        y: ev.pageY - ev.target.offsetTop - ev.target.clientTop,
+        x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft - 20,
+        y: ev.pageY - ev.target.offsetTop - ev.target.clientTop - 100,
       }
     }
     return pos
